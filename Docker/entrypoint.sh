@@ -1,15 +1,9 @@
 #!/bin/bash
+cp -i .env.example .env
 
-if [! -f "vendor/autoload.php"]; then
-    composer install --no-progress --no-iteration
-fi
-
-if [! -f ".env"]; then
-    echo "creating env file for env $APP_ENV"
-    cp .env.example .env
-else
-    echo "env file exist."
-fi
+echo "===============[START] Installing php Vendor via Composer==============="
+composer install
+echo "===============[DONE] Installing php Vendor via Composer==============="
 
 php artisan migrate
 php artisan cache:clear

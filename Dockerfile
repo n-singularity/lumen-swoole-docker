@@ -10,10 +10,10 @@ RUN pecl install -o -f redis \
 
 RUN pecl install swoole && docker-php-ext-enable swoole
 
+COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+
 WORKDIR var/www
 COPY . .
-
-COPY --from=composer:2.3.5 /usr/bin/composer usr/bin/composer
 
 ENV PORT=8000
 ENTRYPOINT ["./Docker/entrypoint.sh"]
